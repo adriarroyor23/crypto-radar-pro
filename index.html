@@ -29,7 +29,7 @@ function analyze(m1,m5,m15,tick){
  const closes=k=>k.map(z=>+z[4]),highs=k=>k.map(z=>+z[2]),lows=k=>k.map(z=>+z[3]);
  const x1=closes(k1),x5=closes(k5),x15=closes(k15),h5=highs(k5),l5=lows(k5),v5=k5.map(z=>+z[5]);
  const e15=ema(x15.slice(-80),20),e50=ema(x15.slice(-99),50),e15prev=ema(x15.slice(-84,-4),20);
- const e9=ema(x5.slice(-60),9),e21=ema(x5.slice(-80),21),r5=rsi(x5),m5=macdHist(x5),atr5=atr(k5),last5=x5.at(-1),prev5=x5.at(-2);
+ const e9=ema(x5.slice(-60),9),e21=ema(x5.slice(-80),21),r5=rsi(x5),m5hist=macdHist(x5),atr5=atr(k5),last5=x5.at(-1),prev5=x5.at(-2);
  const e1fast=ema(x1.slice(-50),9),e1slow=ema(x1.slice(-70),21),r1=rsi(x1),m1h=macdHist(x1),last1=x1.at(-1);
  const avgVol=v5.slice(-21,-1).reduce((a,b)=>a+b,0)/Math.max(1,v5.slice(-21,-1).length),volRatio=v5.at(-1)/Math.max(avgVol,1e-12);
  const recentHigh=Math.max(...h5.slice(-13,-1)),recentLow=Math.min(...l5.slice(-13,-1));
@@ -40,12 +40,12 @@ function analyze(m1,m5,m15,tick){
  const m15Bear=(e15<e50&&x15.at(-1)<e15)||(e15<e15prev&&x15.at(-1)<e15);
  const nearEma=Math.abs(last5-e21)/Math.max(last5,1e-12)<0.004;
  const longPts=[
-   e9>e21, last5>e21, r5>=46&&r5<=72, m5>0,
+   e9>e21, last5>e21, r5>=46&&r5<=72, m5hist>0,
    higherStructure, last5>prev5, volRatio>=0.65,
    nearEma||last5>recentHigh
  ].filter(Boolean).length;
  const shortPts=[
-   e9<e21, last5<e21, r5>=28&&r5<=54, m5<0,
+   e9<e21, last5<e21, r5>=28&&r5<=54, m5hist<0,
    lowerStructure, last5<prev5, volRatio>=0.65,
    nearEma||last5<recentLow
  ].filter(Boolean).length;
