@@ -1,0 +1,11 @@
+{
+  "name": "Crypto Radar Pro",
+  "short_name": "Crypto Radar",
+  "description": "Radar informativo LONG y SHORT para Binance USDⓈ-M Futures.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080e19",
+  "theme_color": "#080e19",
+  "icons": [{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
